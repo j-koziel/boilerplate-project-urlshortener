@@ -2,16 +2,9 @@ require("dotenv").config();
 const dns = require("dns");
 const express = require("express");
 const cors = require("cors");
-// const mongoose = require("mongoose");
-
-// const Url = require("./db");
 
 const app = express();
 const urls = [];
-
-// mongoose.connect(
-//   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.mn9pm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-// );
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
