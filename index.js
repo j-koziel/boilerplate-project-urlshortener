@@ -27,7 +27,7 @@ app.get("/api/shorturl/:urlNum", (req, res, next) => {
   const { urlNum } = req.params;
 
   if (urlNum <= 0) {
-    res.status(400).json({ error: "that url is not supported" });
+    res.json({ error: "that url is not supported" });
   }
 
   res.redirect(urls[urlNum - 1]);
@@ -40,13 +40,11 @@ app.post("/api/shorturl", async (req, res, next) => {
 
     dns.lookup(urlObj.hostname, {}, (err, address, family) => {
       if (err) {
-        return res.status(400).json({ error: "invalid url" });
+        return res.json({ error: "invalid url" });
       }
 
       if (urls.includes(receivedUrl)) {
-        return res
-          .status(400)
-          .json({ error: "this url has already been added" });
+        return res.json({ error: "this url has already been added" });
       }
 
       urls.push(receivedUrl);
@@ -58,7 +56,7 @@ app.post("/api/shorturl", async (req, res, next) => {
     });
   } catch (err) {
     if (err instanceof TypeError) {
-      res.status(400).json({ error: "invalid url" });
+      res.json({ error: "invalid url" });
     }
   }
 });
