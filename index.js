@@ -30,7 +30,15 @@ app.get("/api/hello", (req, res) => {
   res.json({ greeting: "hello API" });
 });
 
-app.get("/api/shorturl/:urlNum", (req, res, next) => {});
+app.get("/api/shorturl/:urlNum", (req, res, next) => {
+  const { urlNum } = req.params;
+
+  if (urlNum <= 0) {
+    res.status(400).json({ error: "that url is not supported" });
+  }
+
+  res.redirect(urls[urlNum - 1]);
+});
 
 app.post("/api/shorturl", (req, res, next) => {
   const receivedUrl = req.body.url;
