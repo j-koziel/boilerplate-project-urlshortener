@@ -28,6 +28,7 @@ app.get("/api/shorturl/:urlNum", (req, res, next) => {
 
   if (urlNum <= 0) {
     res.status(400).json({ error: "that url is not supported" });
+    next();
   }
 
   res.redirect(urls[urlNum - 1]);
@@ -42,12 +43,14 @@ app.post("/api/shorturl", async (req, res, next) => {
       if (err) {
         res.status(400);
         res.json({ error: "invalid url" });
+        next();
       }
     });
 
     urls.forEach((url) => {
       if (url === receivedUrl) {
         res.status(400).json({ error: "that url already exists" });
+        next();
       }
     });
 
@@ -60,6 +63,7 @@ app.post("/api/shorturl", async (req, res, next) => {
   } catch (err) {
     if (err instanceof TypeError) {
       res.status(400).json({ error: "invalid url" });
+      next();
     }
   }
 });
