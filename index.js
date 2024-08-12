@@ -42,17 +42,19 @@ app.post("/api/shorturl", async (req, res, next) => {
       if (err) {
         return res.status(400).json({ error: "invalid url" });
       }
-    });
 
-    if (urls.includes(receivedUrl)) {
-      return res.status(400).json({ error: "this url has already been added" });
-    }
+      if (urls.includes(receivedUrl)) {
+        return res
+          .status(400)
+          .json({ error: "this url has already been added" });
+      }
 
-    urls.push(receivedUrl);
+      urls.push(receivedUrl);
 
-    res.status(200).json({
-      original_url: receivedUrl,
-      short_url: urls.indexOf(receivedUrl) + 1,
+      res.status(200).json({
+        original_url: receivedUrl,
+        short_url: urls.indexOf(receivedUrl) + 1,
+      });
     });
   } catch (err) {
     if (err instanceof TypeError) {
